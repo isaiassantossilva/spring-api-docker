@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+    rest-api-spring:
+        image: rest-api-spring
+        restart: always
+        build: ./docker-project
+        working_dir: /docker-project
+        environment:
+            TZ: America/Sao_Paulo
+            SPRING_BOOT_ENVIRONMENT: Production
+        volumes:
+            - ./docker-project:/docker-project
+            - ~/.m2:/root/.m2
+        ports:
+            - "8080:8080"
+        command: mvn clean spring-boot:run
+        
+networks:
+    my-network:
+        driver: bridge
